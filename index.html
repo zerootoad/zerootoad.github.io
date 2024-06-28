@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            background-color: #f6f8fa;
+            color: #24292e;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
         .circular_image {
             width: 175px;
             height: 175px;
@@ -11,39 +24,65 @@
             overflow: hidden;
             background-color: transparent;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 20px auto;
         }
 
-        .circular_image img{
+        .circular_image img {
             width: 100%;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+
+        .about {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(27,31,35,0.12), 0 8px 24px rgba(27,31,35,0.12);
+            border-radius: 6px;
+        }
+
+        .about h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .about p {
+            font-size: 1em;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        .languages img {
+            margin: 10px;
+        }
+
+        .center {
+            text-align: center;
         }
     </style>
     <title>Profile</title>
 </head>
 <body>
-    <div align="center">
-        <img src="https://avatars.githubusercontent.com/u/153208404?v=4" alt="zeroo" style="border-radius: 50%; width: 175px; height: 175px;">
+    <div class="circular_image">
+        <img src="https://avatars.githubusercontent.com/u/153208404?v=4" alt="zeroo">
     </div>
 
-    <div align="center">
+    <div class="center">
         <h1>zerootoad</h1>
     </div>
 
-    <div>
+    <div class="about">
         <h3>About Me</h3>
-        <p>
-            <em>Hey there, this is zeroo a self-taught developer with 2+ years of experience.</em>
-        </p>
-        <p>
-            <em>Used to mainly be a <strong>python</strong> developer soon enough moved to langs like <strong>C#</strong> and <strong>Java</strong> which really interested me.</em>
-        </p>
-        <p>
-            <em>Below shows the languages I know:</em>
-        </p>
+        <p>Hey there, this is zeroo, a self-taught developer with 2+ years of experience.</p>
+        <p>Used to mainly be a <strong>python</strong> developer soon enough moved to languages like <strong>C#</strong> and <strong>Java</strong> which really interested me.</p>
+        <p>Below shows the languages I know:</p>
     </div>
 
-    <div align="center">
+    <div class="center languages">
         <img src="https://cdn-icons-png.flaticon.com/128/5968/5968350.png" alt="python" width="50" height="50">
         <img src="https://cdn-icons-png.flaticon.com/128/6132/6132221.png" alt="csharp" width="50" height="50">
         <img src="https://cdn-icons-png.flaticon.com/128/6132/6132222.png" alt="cpp" width="50" height="50">
@@ -54,4 +93,3 @@
     </div>
 </body>
 </html>
-
