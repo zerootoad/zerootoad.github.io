@@ -47,6 +47,7 @@
             box-shadow: 0 1px 3px rgba(27,31,35,0.12), 0 8px 24px rgba(27,31,35,0.12);
             border-radius: 6px;
             overflow: hidden;
+            z-index: 0;
         }
 
         .about h3 {
@@ -60,16 +61,16 @@
             line-height: 1.5;
             margin: 10px 0;
             position: relative;
-            z-index: 1; /* Ensures text is above images */
+            z-index: 1; 
         }
 
         .icon {
             position: absolute;
-            width: 80px; /* Increased size */
-            height: 80px; /* Increased size */
-            z-index: 0; /* Ensures images are behind text */
-            opacity: 0.4; /* More transparent for readability */
-            transform-origin: center; /* Center of rotation */
+            width: 80px;
+            height: 80px; 
+            z-index: -1;
+            opacity: 0.4; 
+            transform-origin: center; 
         }
     </style>
     <title>Profile</title>
