@@ -39,12 +39,14 @@
         }
 
         .about {
+            position: relative;
             max-width: 600px;
-            margin: 20px auto;
+            margin: 20px 10px auto 10px;
             padding: 20px;
             background-color: #161b22;
             box-shadow: 0 1px 3px rgba(27,31,35,0.12), 0 8px 24px rgba(27,31,35,0.12);
             border-radius: 6px;
+            overflow: hidden;
         }
 
         .about h3 {
@@ -56,15 +58,17 @@
             font-size: 1em;
             line-height: 1.5;
             margin: 10px 0;
+            position: relative;
+            z-index: 1; /* Ensures text is above images */
         }
 
-        .languages img {
-            width: 50px;
-            height: 50px;
-        }
-
-        .center {
-            text-align: center;
+        .icon {
+            position: absolute;
+            width: 80px; /* Increased size */
+            height: 80px; /* Increased size */
+            z-index: 0; /* Ensures images are behind text */
+            opacity: 0.4; /* More transparent for readability */
+            transform-origin: center; /* Center of rotation */
         }
     </style>
     <title>Profile</title>
@@ -81,16 +85,71 @@
     <div class="about">
         <h3>About Me</h3>
         <p>Hey there, this is zeroo, a self-taught developer with 2+ years of experience.</p>
-        <p>Used to mainly be a <strong>python</strong> developer soon enough moved to languages like <strong>C#</strong> and <strong>Java</strong> which really interested me.</p>
-        <p>Below shows the languages I know:</p>
+        <p>Used to mainly be a <strong>python</strong> developer after 2 years i learnt languages like <strong>C#</strong> and <strong>Java</strong> which i really liked and use today.</p>
+        <p>I have also had experience with roblox studio development using <strong>luau</strong> which resulted really fun.</p>
+        <p>Currently i'm planning on learning <strong>typescript</strong> or <strong>rust</strong> so if you got any tip you can hmu.</p>
+        <div id="icons">
+            <img class="icon" src="https://cdn-icons-png.flaticon.com/128/5968/5968350.png" alt="python">
+            <img class="icon" src="https://cdn-icons-png.flaticon.com/128/6132/6132221.png" alt="csharp">
+            <img class="icon" src="https://cdn-icons-png.flaticon.com/128/6132/6132222.png" alt="cpp">
+            <img class="icon" src="https://cdn-icons-png.flaticon.com/128/5968/5968282.png" alt="java">
+            <img class="icon" src="https://duckduckgo.com/i/074bab0a.png" alt="lua">
+            <img class="icon" src="https://external-content.duckduckgo.com/ip3/luau-lang.org.ico" alt="luau">
+            <img class="icon" src="https://external-content.duckduckgo.com/ip3/go.dev.ico" alt="golang">
+        </div>
     </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const aboutBox = document.querySelector('.about');
+            const icons = document.querySelectorAll('#icons .icon');
+            const iconSize = 120;
+            const minDistance = 86; // Increased minimum distance
 
-    <img src="https://cdn-icons-png.flaticon.com/128/5968/5968350.png" alt="python" class="languages" style="top: 20%; left: 10%;">
-    <img src="https://cdn-icons-png.flaticon.com/128/6132/6132221.png" alt="csharp" class="languages" style="top: 40%; left: 80%;">
-    <img src="https://cdn-icons-png.flaticon.com/128/6132/6132222.png" alt="cpp" class="languages" style="top: 70%; left: 50%;">
-    <img src="https://cdn-icons-png.flaticon.com/128/5968/5968282.png" alt="java" class="languages" style="top: 30%; left: 30%;">
-    <img src="https://duckduckgo.com/i/074bab0a.png" alt="lua" class="languages" style="top: 80%; left: 20%;">
-    <img src="https://external-content.duckduckgo.com/ip3/luau-lang.org.ico" alt="luau" class="languages" style="top: 10%; left: 60%;">
-    <img src="https://external-content.duckduckgo.com/ip3/go.dev.ico" alt="golang" class="languages" style="top: 50%; left: 70%;">
+            icons.forEach(icon => {
+                let randomTop, randomLeft, isValidPosition;
+
+                do {
+                    isValidPosition = true;
+                    randomTop = Math.random() * (aboutBox.clientHeight - iconSize);
+                    randomLeft = Math.random() * (aboutBox.clientWidth - iconSize);
+
+                    icons.forEach(otherIcon => {
+                        if (otherIcon === icon) return;
+                        const otherTop = parseFloat(otherIcon.style.top);
+                        const otherLeft = parseFloat(otherIcon.style.left);
+
+                        const distance = Math.sqrt(Math.pow(randomTop - otherTop, 2) + Math.pow(randomLeft - otherLeft, 2));
+                        if (distance < minDistance) isValidPosition = false;
+                    });
+                } while (!isValidPosition);
+
+                icon.style.top = `${randomTop}px`;
+                icon.style.left = `${randomLeft}px`;
+                icon.style.transform = `rotate(${Math.random() * 180}deg)`; // Random rotation between 0 and 180 degrees
+
+                // Calculate clipping if icon is out of bounds
+                const rightEdge = randomLeft + iconSize;
+                const bottomEdge = randomTop + iconSize;
+                const clipPath = [];
+
+                if (randomLeft < 0) {
+                    clipPath.push(`rect(0px, ${iconSize}px, ${iconSize}px, ${-randomLeft}px)`);
+                } else if (rightEdge > aboutBox.clientWidth) {
+                    clipPath.push(`rect(0px, ${aboutBox.clientWidth - randomLeft}px, ${iconSize}px, 0px)`);
+                }
+
+                if (randomTop < 0) {
+                    clipPath.push(`rect(${randomTop}px, ${iconSize}px, ${iconSize}px, 0px)`);
+                } else if (bottomEdge > aboutBox.clientHeight) {
+                    clipPath.push(`rect(0px, ${iconSize}px, ${aboutBox.clientHeight - randomTop}px, 0px)`);
+                }
+
+                if (clipPath.length > 0) {
+                    icon.style.clipPath = clipPath.join(', ');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
